@@ -1,0 +1,12 @@
+package com.bits.model;
+
+public enum Role {
+	ADMIN,
+	SUPPLIER,
+	TRANSPORTER,
+	MANUFACTURER,
+	WHOLESALER,
+	DISTRIBUTER,
+	PHARMA,
+	CUSTOMER
+}

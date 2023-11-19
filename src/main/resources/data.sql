@@ -1,0 +1,5 @@
+INSERT INTO business_service values(1,'Payments')
+INSERT INTO business_service values(2,'Insurance')
+INSERT INTO business_service values(3,'Inspection')
+INSERT INTO users values(1,'Biswas','biswas.soumya28@gmail.com')
+INSERT INTO tenant values(1,'biswas.soumya28@gmail.com','Biswas')
