@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bits.model.BusinessService;
+import com.bits.model.Subscription;
 import com.bits.model.Tenant;
 import com.bits.service.BusinessServiceService;
 import com.bits.service.SubscriptionService;
@@ -24,13 +25,16 @@ public class SubscriptionController {
 	BusinessServiceService businessServiceService;
 
     @RequestMapping(value="/subscription",method=RequestMethod.POST)
-    void createSubscription(@RequestBody Tenant tenant, BusinessService businessService) {
-    	Tenant dbTenant = tenantService.getTenantById(tenant.getId());
-    	BusinessService dbBusinessService = businessServiceService.getBusinessServiceById(businessService.getId());
-        subscriptionService.subscribe(dbTenant, dbBusinessService);
+    void createSubscription(@RequestBody Subscription subscription) {
+    	Tenant dbTenant = tenantService.getTenantById(subscription.getTenant().getId());
+    	BusinessService dbBusinessService = businessServiceService.getBusinessServiceById(subscription.getBusinessService().getId());
+        subscriptionService.subscribe(dbTenant, dbBusinessService, subscription.isAutoscale());
     }
-    /*@RequestMapping(value="/subscription",method=RequestMethod.PUT)
-    String updateSubscription() {
-        return subscriptionService.updateSubscription();
-    }*/
+    
+    @RequestMapping(value="/subscription",method=RequestMethod.PUT)
+    void unsubscribe(@RequestBody Subscription subscription) {
+    	Tenant dbTenant = tenantService.getTenantById(subscription.getTenant().getId());
+    	BusinessService dbBusinessService = businessServiceService.getBusinessServiceById(subscription.getBusinessService().getId());
+        subscriptionService.updateAutoscaling(dbTenant, dbBusinessService, subscription.isAutoscale());
+    }
 }
